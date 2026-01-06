@@ -82,6 +82,8 @@ class Event(BaseEvent[None]):
     _lastSentData: None
 
     def __init__(self) -> None:
+        """
+        """
         super().__init__()
 
     def __iadd__(self, other: Callable[[], Any], /) -> Self:
