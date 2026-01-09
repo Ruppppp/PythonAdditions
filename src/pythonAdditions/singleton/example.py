@@ -1,4 +1,6 @@
-from src.pythonAdditions.singleton import SingletonError, Singleton
+from contextlib import suppress
+
+from src.pythonAdditions.singleton import Singleton, SingletonError
 
 
 def main() -> None:
@@ -9,20 +11,18 @@ def main() -> None:
         def __init__(self, name: str) -> None:
             self._name = name
 
-        def getName(self) -> str:
+        def get_name(self) -> str:
             return self._name
 
     # first constructor call
     uo = UniqueObject("Unique Object")
 
-    try:
+    with suppress(SingletonError):
         # calling the constructor more than once will raise a SingletonError
         _ = UniqueObject("Unique Object2")
-    except SingletonError:
-        pass
 
     # use the reference directly or get it from the "INSTANCE" attribute of the class
-    assert uo.getName() == UniqueObject.INSTANCE.getName()
+    assert uo.get_name() == UniqueObject.INSTANCE.get_name()
 
 
 if __name__ == "__main__":
