@@ -1,4 +1,4 @@
-from event import DataEvent, Event
+from python_additions import DataEvent, Event
 
 
 def main() -> None:
@@ -24,7 +24,7 @@ def main() -> None:
     event.unsubscribe(func2)  # event -= func2 also works
     event.invoke()  # this will only call func1
 
-    event.clear()  # usubscribe all
+    event.clear()  # unsubscribe all
     event.invoke()  # this will do nothing
 
     # ---------- DataEvents ----------

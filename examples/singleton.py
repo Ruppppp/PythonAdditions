@@ -1,6 +1,6 @@
 from contextlib import suppress
 
-from src.pythonAdditions.singleton import Singleton, SingletonError
+from python_additions import Singleton, SingletonError
 
 
 def main() -> None:
