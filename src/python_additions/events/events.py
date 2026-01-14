@@ -62,13 +62,9 @@ class Event(BaseEvent[Callable[[], Any]]):
     """Allow easy event management, when an event is invoked, every subscribed callback function will be called automatically."""
 
     @overload
-    def invoke(self) -> list[Any]:
-        pass
-
+    def invoke(self) -> list[Any]: ...
     @overload
-    def invoke(self, data: None = None, /) -> list[Any]:
-        pass
-
+    def invoke(self, data: None = None, /) -> list[Any]: ...
     def invoke(self, data: None = None) -> list[Any]:
         """Call every subscribed callbacks, returns a list of all the objects returned by the callback functions by order of subscription."""
         return super().invoke(None)
@@ -77,23 +73,5 @@ class Event(BaseEvent[Callable[[], Any]]):
 class DataEvent[T](BaseEvent[Callable[[T], Any] | Callable[[], Any]]):
     """Allow easy event management, when an event is invoked, every subscribed callback function will be called automatically. Also transfers data to callback functions."""
 
-    _last_sent_data: T | None
-
-    @overload
-    def __init__(self) -> None:
-        pass
-
-    @overload
-    def __init__(self, default_data: T) -> None:
-        """`defaultData` is the value returned by `getLastSentData` if `invoke` was never called."""
-        pass
-
-    def __init__(self, default_data: T | None = None) -> None:
-        super().__init__()
-        self._last_sent_data = default_data
-
     def invoke(self, data: T, /) -> list[Any]:
         return super().invoke(data)
-
-    def get_last_sent_data(self) -> T | None:
-        return self._last_sent_data
